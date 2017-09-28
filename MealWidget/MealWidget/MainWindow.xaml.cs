@@ -1,20 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MealWidget
 {
@@ -23,6 +10,58 @@ namespace MealWidget
     /// </summary>
     public partial class MainWindow : Window
     {
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct WindowCompositionAttributeData
+        {
+            public WindowCompositionAttribute Attribute;
+            public IntPtr Data;
+            public int SizeOfData;
+        }
+        internal enum WindowCompositionAttribute
+        {
+            // ...
+            WCA_ACCENT_POLICY = 19
+            // ...
+        }
+        internal enum AccentState
+        {
+            ACCENT_DISABLED = 0,
+            ACCENT_ENABLE_GRADIENT = 1,
+            ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
+            ACCENT_ENABLE_BLURBEHIND = 3,
+            ACCENT_INVALID_STATE = 4
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct AccentPolicy
+        {
+            public AccentState AccentState;
+            public int AccentFlags;
+            public int GradientColor;
+            public int AnimationId;
+        }
+
+        internal void EnableBlur()
+        {
+            var windowHelper = new WindowInteropHelper(this);
+            var accent = new AccentPolicy();
+            var accentStructSize = Marshal.SizeOf(accent);
+            accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
+            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+            Marshal.StructureToPtr(accent, accentPtr, false);
+            var data = new WindowCompositionAttributeData
+            {
+                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                SizeOfData = accentStructSize,
+                Data = accentPtr
+            };
+            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+            Marshal.FreeHGlobal(accentPtr);
+        }
+
+
         const UInt32 SWP_NOSIZE = 0x0001;
         const UInt32 SWP_NOMOVE = 0x0002;
         const UInt32 SWP_NOACTIVATE = 0x0010;
@@ -36,13 +75,22 @@ namespace MealWidget
         [DllImport("user32.dll")]
         static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X,
            int Y, int cx, int cy, uint uFlags);
+
         [DllImport("user32.dll")]
         static extern IntPtr DeferWindowPos(IntPtr hWinPosInfo, IntPtr hWnd,
            IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
+
         [DllImport("user32.dll")]
         static extern IntPtr BeginDeferWindowPos(int nNumWindows);
+
         [DllImport("user32.dll")]
         static extern bool EndDeferWindowPos(IntPtr hWinPosInfo);
+
+        [DllImport("User32.dll")]
+        static extern Int32 FindWindow(String lpClassName, String lpWindowName);
+
+        [DllImport("user32.dll")]
+        static extern int SetParent(int hWndChild, int hWndNewParent);
 
         private IntPtr WndProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
@@ -50,6 +98,7 @@ namespace MealWidget
             {
                 IntPtr HWnd = new WindowInteropHelper(this).Handle;
                 SetWindowPos(HWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
+
                 handled = true;
             }
             return IntPtr.Zero;
@@ -58,9 +107,12 @@ namespace MealWidget
         public MainWindow()
         {
             InitializeComponent();
-
+            
             Loaded += (s, e) =>
             {
+                EnableBlur();
+                EnableBlur();
+
                 IntPtr hWnd = new WindowInteropHelper(this).Handle;
                 SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
 
