@@ -11,21 +11,31 @@
         mc:Ignorable="d"
         Background="Transparent"
         Title="MainWindow"
-        Height="350"
-        Width="525"
-        WindowStartupLocation="Manual"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Height="150"
+        Width="300"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        MouseLeftButtonUp="Window_MouseLeftButtonUp">
     <x:Code>
-        <![CDATA[            
+        <!--<![CDATA[            
             private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
             {
-                DragMove();
+                
             }
-        ]]>
+        ]]>-->
     </x:Code>
-    <Border CornerRadius="30"
+    <Border x:Name="border"
+            CornerRadius="30"
             Background="White"
-            Opacity="0.5">
+            Opacity="0.5"
+            RenderTransformOrigin="0.5,0.5">
+        <Border.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform x:Name="asdf" ScaleX="1" ScaleY="1"/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Border.RenderTransform>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
