@@ -39,6 +39,7 @@ namespace MealWidget
             Loaded += (s, e) =>
             {
                 SetWindowPos(Process.GetCurrentProcess().MainWindowHandle, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+                
             };
         }
     }

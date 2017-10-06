@@ -7,7 +7,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         mc:Ignorable="d"
-        Background="#77FFFFFF"
+        Background="#55000000"
         Title="MainWindow"
         Height="350"
         Width="525"
@@ -21,6 +21,27 @@
         ]]>
     </x:Code>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="175*" />
+            <ColumnDefinition Width="175*" />
+            <ColumnDefinition Width="175*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28*" />
+            <RowDefinition Height="20*" />
+            <RowDefinition Height="127*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" FontSize="20" Text="오늘자 니네들 급식이야" VerticalAlignment="Center"
+                   HorizontalAlignment="Center" Foreground="White" Grid.ColumnSpan="3" Margin="155,15,155,14"
+                   Height="27" Width="215" />
+        <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
+        <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
+        <Border Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="아침" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="15" Foreground="White" />
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="점심" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="15" Foreground="White" />
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="저녁" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="15" Foreground="White" />
     </Grid>
 </Window>
