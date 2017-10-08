@@ -34,14 +34,20 @@
         <TextBlock Grid.Row="0" FontSize="20" Text="오늘자 니네들 급식이야" VerticalAlignment="Center"
                    HorizontalAlignment="Center" Foreground="White" Grid.ColumnSpan="3" Margin="155,15,155,14"
                    Height="27" Width="215" />
-        <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
-        <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
-        <Border Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
+        <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="White" />
+        <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="White" />
+        <Border Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="White" />
+        <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="White" />
+        <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="White" />
+        <Border Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="White" />
         <TextBlock Grid.Row="1" Grid.Column="0" Text="아침" HorizontalAlignment="Center" VerticalAlignment="Center"
                    FontSize="15" Foreground="White" />
         <TextBlock Grid.Row="1" Grid.Column="1" Text="점심" HorizontalAlignment="Center" VerticalAlignment="Center"
                    FontSize="15" Foreground="White" />
         <TextBlock Grid.Row="1" Grid.Column="2" Text="저녁" HorizontalAlignment="Center" VerticalAlignment="Center"
                    FontSize="15" Foreground="White" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Foreground="White" HorizontalAlignment="Center" Text="으응" x:Name="Breakfirst"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Foreground="White" HorizontalAlignment="Center" Text="으응" x:Name="Lunch"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Foreground="White" HorizontalAlignment="Center" Text="으응" x:Name="Dinner"/>
     </Grid>
 </Window>

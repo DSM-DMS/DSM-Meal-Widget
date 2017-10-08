@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SchoolMeal;
 
 namespace MealWidget
 {
@@ -38,8 +39,40 @@ namespace MealWidget
 
             Loaded += (s, e) =>
             {
-                SetWindowPos(Process.GetCurrentProcess().MainWindowHandle, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
-                
+                SetWindowPos(Process.GetCurrentProcess().MainWindowHandle, HWND_BOTTOM, 0, 0, 0, 0,
+                    SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+                Meal meal = new Meal(Regions.Daejeon, SchoolType.High, "G100000170");
+                var menu = meal.GetMealMenu();
+//                var date = DateTime.Now.Day - 1;
+                var date = 15;
+                if (!menu[date].IsExistMenu)
+                {
+                    this.Breakfirst.Text = "급식 없어";
+                }
+                else
+                {
+                    string breakfirst = null;
+                    string lunch = null;
+                    string dinner = null;
+                    foreach (var item in menu[date].Breakfast)
+                    {
+                        breakfirst += item.Remove(item.IndexOf('*')) + "\n";
+                    }
+                    this.Breakfirst.Text = breakfirst;
+
+                    foreach (var item in menu[date].Lunch)
+                    {
+//                        lunch += item.Remove(item.IndexOf('*')) + "\n";
+                        lunch += item + "\n";
+                    }
+                    this.Lunch.Text = lunch;
+                    foreach (var item in menu[date].Dinner)
+                    {
+//                        dinner += item.Remove(item.IndexOf('*')) + "\n";
+                        dinner += item + "\n";
+                    }
+                    this.Dinner.Text = dinner;
+                }
             };
         }
     }
