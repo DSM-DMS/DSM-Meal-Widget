@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -178,6 +180,46 @@ namespace MealWidget
 
             asdf.BeginAnimation(ScaleTransform.ScaleXProperty, anim);
             asdf.BeginAnimation(ScaleTransform.ScaleYProperty, anim);
+        }
+    }
+
+    public class Meals : ObservableCollection<Meal>
+    {
+    }
+
+    public class Meal : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private string name = string.Empty;
+
+        protected void Notify(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+
+            set
+            {
+                name = value;
+                Notify("Name");
+            }
+        }
+
+        public Meal(string name)
+        {
+            this.name = name;
+        }
+
+        public Meal() : this("급식")
+        {
+
         }
     }
 }

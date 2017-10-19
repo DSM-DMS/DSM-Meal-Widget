@@ -15,6 +15,18 @@
         Width="300"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         MouseLeftButtonUp="Window_MouseLeftButtonUp">
+
+    <Window.Resources>
+        <local:Meals x:Key="breakfast">
+        </local:Meals>
+
+        <local:Meals x:Key="launch">
+        </local:Meals>
+
+        <local:Meals x:Key="dinner">
+        </local:Meals>
+    </Window.Resources>
+    
     <x:Code>
         <!--<![CDATA[            
             private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -37,10 +49,81 @@
             </TransformGroup>
         </Border.RenderTransform>
         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="3*" />
+                <ColumnDefinition Width ="3*" />
+                <ColumnDefinition Width ="3*" />
+            </Grid.ColumnDefinitions>
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
+
+            <Label Grid.Column="1" Grid.Row="0" Content="아침" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+            <Label Grid.Column="2" Grid.Row="0" Content="점심" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+            <Label Grid.Column="3" Grid.Row="0" Content="저녁" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+
+            <Grid x:Name="BreakfastGrid" Grid.Column="1" Grid.Row="1"
+                  DataContext="{StaticResource breakfast}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ListBox x:Name="BreakfastList" Grid.Row="0" Grid.Column="0" BorderThickness="0"
+                         ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Path=Name}" BorderThickness="0" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <Grid x:Name="LaunchGrid" Grid.Column="2" Grid.Row="1" 
+                  DataContext="{StaticResource launch}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ListBox x:Name="Launch" Grid.Row="0" Grid.Column="0" BorderThickness="0"
+                         ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Path=Name}" BorderThickness="0" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <Grid x:Name="DinnerPanel" Grid.Column="3" Grid.Row="1" 
+                  DataContext="{StaticResource dinner}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ListBox x:Name="DinnerList" Grid.Column="0" Grid.Row="0" BorderThickness="0"
+                         ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Path=Name}" BorderThickness="0"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
         </Grid>
     </Border>
 </Window>
