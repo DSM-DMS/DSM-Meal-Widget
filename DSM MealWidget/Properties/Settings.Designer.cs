@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MealWidget.Properties
+namespace DSM_MealWidget.Properties
 {
 
 
